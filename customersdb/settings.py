@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 
+from pathlib import Path
+import django_heroku
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -126,4 +128,4 @@ THOUSAND_SEPARATOR = "."
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+django_heroku.settings(locals())
