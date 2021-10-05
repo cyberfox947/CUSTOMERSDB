@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% block content %}
 
 {% if customers %}
@@ -8,6 +7,7 @@
 	<div class="panel-heading">Customer list</div>
 	<table class="table table-hover">
 		<tr>
+			<th>No.</th>
 			<th>Name</th>
 			<th>Email</th>
 			<th>Phone</th>
@@ -19,6 +19,7 @@
 		</tr>
 		{% for customer in customers %}
 		<tr>
+			<td>{{ forloop.counter }}.</td>
 			<td>{{ customer.name }}</td>
 			<td>{{ customer.email }}</td>
 			<td>{{ customer.phone }}</td>
@@ -38,8 +39,9 @@
 			<td>    </td>
 			<td>    </td>
 			<td>    </td>
-			<td>Total Collectibles: $ </td>
-			<td>{{ customer.total_items }}</td>
+			<td>    </td>
+			<th>Total Collectibles: $ </th>
+			<th>{{ total|floatformat:2 }}</th>
 		</tr>
 	</table>
 </div>

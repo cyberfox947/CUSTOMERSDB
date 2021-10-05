@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 import datetime
 from django.contrib.auth import authenticate, login, logout
-
+from django.db.models import Sum
 from .models import Customer
 
 
@@ -36,9 +36,11 @@ def logout_view(request):
 @login_required(login_url='login/')
 def index(request):
     customers = Customer.objects.all()
+    total = Customer.objects.aggregate(TOTAL=Sum('total_collectibles'))['TOTAL']
     context = {
         'title': 'Customer List',
         'customers': customers,
+        'total': total
     }
     return render(request, 'index.html', context)
 
@@ -47,11 +49,9 @@ def index(request):
 @login_required(login_url='login/')
 def customer(request, customer_id):
     customer = get_object_or_404(Customer, pk=customer_id)
-    # invoices = Invoice.objects.filter(customer = customer)
     context = {
         'title': "Customer info - %s" % customer.name,
-        'customer': customer,
-        # 'invoices' : invoices,
+        'customer': customer
     }
     return render(request, 'customer.html', context)
 
